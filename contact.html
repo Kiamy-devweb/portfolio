@@ -149,39 +149,20 @@
 <!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
-// Inicializar EmailJS
 emailjs.init("2SSxpal17T2teED2b");
 
 window.onload = function() {
   document.getElementById('contact-form').addEventListener('submit', function(event) {
     event.preventDefault();
     
-    // Pegar valores diretamente
-    const name = document.querySelector('input[name="from_name"]').value;
-    const email = document.querySelector('input[name="reply_to"]').value;  
-    const subject = document.querySelector('input[name="subject"]').value;
-    const message = document.querySelector('textarea[name="message"]').value;
-    
-    if (!name || !email || !subject || !message) {
-      alert('Por favor, preencha todos os campos!');
-      return;
-    }
-    
-    // Mostrar carregamento
-    const btn = document.querySelector('#contact-form button');
+    const btn = this.querySelector('button');
     btn.innerHTML = 'Enviando...';
     btn.disabled = true;
     
-    const templateParams = {
-      name: name,
-      email: email,
-      subject: subject,
-      message: message,
-      time: new Date().toLocaleString('pt-PT')
-    };
-    
-    // Service ID correto: service_oi7mzls (sem o "1")
-    emailjs.send('service_oi7mzls', 'template_qhtzamc', templateParams)
+    // IDs corretos confirmados:
+    // Service: service_oi7mzls
+    // Template: template_qhtzamc
+    emailjs.sendForm('service_oi7mzls', 'template_qhtzamc', this)
       .then(function(response) {
         console.log('SUCCESS!', response);
         alert('Mensagem enviada com sucesso!');
@@ -190,8 +171,10 @@ window.onload = function() {
         btn.disabled = false;
       })
       .catch(function(error) {
-        console.log('ERRO:', error);
-        alert('Erro ao enviar. Tente novamente.');
+        console.log('ERRO detalhado:', error);
+        console.log('Status:', error.status);
+        console.log('Text:', error.text);
+        alert('Erro: ' + error.text);
         btn.innerHTML = 'Send Message';
         btn.disabled = false;
       });
