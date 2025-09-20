@@ -156,15 +156,11 @@ window.onload = function() {
   document.getElementById('contact-form').addEventListener('submit', function(event) {
     event.preventDefault();
     
-    console.log('Formulário submetido!'); // Para debug
-    
     // Pegar valores diretamente
     const name = document.querySelector('input[name="from_name"]').value;
     const email = document.querySelector('input[name="reply_to"]').value;  
     const subject = document.querySelector('input[name="subject"]').value;
     const message = document.querySelector('textarea[name="message"]').value;
-    
-    console.log('Dados:', {name, email, subject, message}); // Para debug
     
     if (!name || !email || !subject || !message) {
       alert('Por favor, preencha todos os campos!');
@@ -184,7 +180,8 @@ window.onload = function() {
       time: new Date().toLocaleString('pt-PT')
     };
     
-    emailjs.send('service_oi7mz1s', 'template_qhtzamc', templateParams)
+    // Service ID correto: service_oi7mzls (sem o "1")
+    emailjs.send('service_oi7mzls', 'template_qhtzamc', templateParams)
       .then(function(response) {
         console.log('SUCCESS!', response);
         alert('Mensagem enviada com sucesso!');
