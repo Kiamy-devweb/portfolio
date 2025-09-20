@@ -87,42 +87,101 @@
 
   <main class="main">
 
-    <!-- Contact Section -->
+   <!-- Contact Section -->
     <section id="contact" class="contact section">
+
+      <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Contact</h2>
-        <p>Use the form below to get in touch with me directly. I’ll reply as soon as possible.</p>
-      </div>
+        <p>Here you can make your content more professional and direct, so that anyone who visits can easily contact you.</p>
+      </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
+
         <div class="row g-4 g-lg-5">
           <div class="col-lg-5">
-            <div class="info-box">
+            <div class="info-box" data-aos="fade-up" data-aos-delay="200">
               <h3>Contact Info</h3>
-              <p>Contact me for collaborations, projects, or any questions related to my work.</p>
-              <div><i class="bi bi-geo-alt"></i> Tomar, Portugal</div>
-              <div><i class="bi bi-telephone"></i> +351 939 813 860</div>
-              <div><i class="bi bi-envelope"></i> kiamy.webdev@gmail.com</div>
+              <p>Contact me for collaborations, projects, or any questions related to my work as a developer.
+I'm always available to exchange ideas and explore new opportunities.</p>
+
+              <div class="info-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="icon-box">
+                  <i class="bi bi-geo-alt"></i>
+                </div>
+                <div class="content">
+                  <h4>Our Location</h4>
+                  <p>Tomar, Portugal</p>
+                  
+                </div>
+              </div>
+
+              <div class="info-item" data-aos="fade-up" data-aos-delay="400">
+                <div class="icon-box">
+                  <i class="bi bi-telephone"></i>
+                </div>
+                <div class="content">
+                  <h4>Phone Number</h4>
+                  <p>+351 939 813 860</p>
+                </div>
+              </div>
+
+              <div class="info-item" data-aos="fade-up" data-aos-delay="500">
+                <div class="icon-box">
+                  <i class="bi bi-envelope"></i>
+                </div>
+                <div class="content">
+                  <h4>Email Address</h4>
+                  <p>kiamy.webdev@gmail.com</p>
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="col-lg-7">
-            <div class="contact-form">
+            <div class="contact-form" data-aos="fade-up" data-aos-delay="300">
               <h3>Get In Touch</h3>
-              <form id="contact-form">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <input type="text" name="subject" placeholder="Subject" required>
-                <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-                <button type="submit">Send Message</button>
+              <p>I'm here to answer your questions, listen to your suggestions, and help in any way I can.
+Just fill out the form below and I'll get back to you as soon as possible. If you prefer, I can call you back!</p>
+
+              <form  id="contact-form" data-aos="fade-up" data-aos-delay="200">
+                <div class="row gy-4">
+
+                  <div class="col-md-6">
+                    <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                  </div>
+
+                  <div class="col-md-6 ">
+                    <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                  </div>
+
+                  <div class="col-12">
+                    <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                  </div>
+
+                  <div class="col-12">
+                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                  </div>
+
+                  <div class="col-12 text-center">
+                    <div class="loading">Loading</div>
+                    <div class="error-message"></div>
+                    <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                    <button type="submit" class="btn">Send Message</button>
+                  </div>
+
+                </div>
               </form>
-              <div id="alert-success" class="alert success">✅ Message sent successfully!</div>
-              <div id="alert-error" class="alert error">❌ Failed to send. Please try again.</div>
+
             </div>
           </div>
+
         </div>
+
       </div>
-    </section>
+
+    </section><!-- /Contact Section -->
   </main>
 
   <footer id="footer" class="footer">
