@@ -146,34 +146,83 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/js/main.js"></script>
-<!-- EmailJs -->
- <script>
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  // Inicializar EmailJS
   (function(){
-    emailjs.init("2SSxpal17T2teED2b"); // Sua chave real
+    emailjs.init("2SSxpal17T2teED2b");
   })();
 
-  document.getElementById("contact-form").addEventListener("submit", function(event) {
-    event.preventDefault();
-    
-    // Dados do formulário
-    const templateParams = {
-      name: this.from_name.value,
-      email: this.reply_to.value,  
-      subject: this.subject.value,
-      message: this.message.value,
-      time: new Date().toLocaleString('pt-PT')
-    };
+  // Event listener para o formulário
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
 
-    emailjs.send("service_oi7mz1s", "template_qhtzamc", templateParams)
-      .then(() => {
-        document.getElementById("alert-success").style.display = "block";
-        document.getElementById("alert-error").style.display = "none";
-        this.reset();
-      }, (error) => {
-        document.getElementById("alert-error").style.display = "block";
-        document.getElementById("alert-success").style.display = "none";
-        console.error("EmailJS Error:", error);
-      });
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      // Elementos do UI
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const successAlert = document.getElementById('alert-success');
+      const errorAlert = document.getElementById('alert-error');
+
+      // Validação simples
+      const name = this.from_name?.value?.trim();
+      const email = this.reply_to?.value?.trim();
+      const subject = this.subject?.value?.trim();
+      const message = this.message?.value?.trim();
+
+      if (!name || !email || !subject || !message) {
+        errorAlert.innerHTML = "❌ Por favor, preencha todos os campos.";
+        errorAlert.style.display = "block";
+        successAlert.style.display = "none";
+        return;
+      }
+
+      // Estado de carregamento
+      submitBtn.innerHTML = 'Enviando...';
+      submitBtn.disabled = true;
+      successAlert.style.display = 'none';
+      errorAlert.style.display = 'none';
+
+      const templateParams = {
+        name: name,
+        email: email,
+        subject: subject,
+        message: message,
+        time: new Date().toLocaleString('pt-PT')
+      };
+
+      console.log('Enviando:', templateParams);
+
+      emailjs.send("service_oi7mz1s", "template_qhtzamc", templateParams)
+        .then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+          successAlert.innerHTML = "✅ Mensagem enviada com sucesso! Responderemos em breve.";
+          successAlert.style.display = "block";
+          errorAlert.style.display = "none";
+          form.reset();
+
+          // Resetar botão após 5 segundos
+          setTimeout(() => {
+            successAlert.style.display = 'none';
+            submitBtn.innerHTML = 'Send Message';
+            submitBtn.disabled = false;
+          }, 5000);
+
+        }, (error) => {
+          console.error('FAILED...', error);
+          errorAlert.innerHTML = "❌ Erro ao enviar mensagem. Tente novamente.";
+          errorAlert.style.display = "block";
+          successAlert.style.display = "none";
+
+          // Resetar botão
+          submitBtn.innerHTML = 'Send Message';
+          submitBtn.disabled = false;
+        });
+    });
   });
 </script>
 </body>
