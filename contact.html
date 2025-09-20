@@ -146,13 +146,10 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/js/main.js"></script>
-
-  <!-- EmailJS -->
-  <!-- EmailJS -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
+<!-- EmailJs -->
+ <script>
   (function(){
-    emailjs.init("SEU_PUBLIC_KEY_AQUI"); // Encontre em EmailJS > Account > General
+    emailjs.init("2SSxpal17T2teED2b"); // Sua chave real
   })();
 
   document.getElementById("contact-form").addEventListener("submit", function(event) {
@@ -160,10 +157,10 @@
     
     // Dados do formulário
     const templateParams = {
-      name: this.from_name.value,        // Campo "from_name" do HTML
-      email: this.reply_to.value,        // Campo "reply_to" do HTML  
-      subject: this.subject.value,       // Campo "subject" do HTML
-      message: this.message.value,       // Campo "message" do HTML
+      name: this.from_name.value,
+      email: this.reply_to.value,  
+      subject: this.subject.value,
+      message: this.message.value,
       time: new Date().toLocaleString('pt-PT')
     };
 
