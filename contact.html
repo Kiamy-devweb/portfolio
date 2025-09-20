@@ -148,26 +148,36 @@
   <script src="assets/js/main.js"></script>
 
   <!-- EmailJS -->
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-  <script>
-    (function(){
-      emailjs.init("YOUR_PUBLIC_KEY"); // substitua pela sua Public Key
-    })();
+  <!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("SEU_PUBLIC_KEY_AQUI"); // Encontre em EmailJS > Account > General
+  })();
 
-    document.getElementById("contact-form").addEventListener("submit", function(event) {
-      event.preventDefault();
+  document.getElementById("contact-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    
+    // Dados do formulário
+    const templateParams = {
+      name: this.from_name.value,        // Campo "from_name" do HTML
+      email: this.reply_to.value,        // Campo "reply_to" do HTML  
+      subject: this.subject.value,       // Campo "subject" do HTML
+      message: this.message.value,       // Campo "message" do HTML
+      time: new Date().toLocaleString('pt-PT')
+    };
 
-      emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
-        .then(() => {
-          document.getElementById("alert-success").style.display = "block";
-          document.getElementById("alert-error").style.display = "none";
-          this.reset();
-        }, (error) => {
-          document.getElementById("alert-error").style.display = "block";
-          document.getElementById("alert-success").style.display = "none";
-          console.error("EmailJS Error:", error);
-        });
-    });
-  </script>
+    emailjs.send("service_oi7mz1s", "template_qhtzamc", templateParams)
+      .then(() => {
+        document.getElementById("alert-success").style.display = "block";
+        document.getElementById("alert-error").style.display = "none";
+        this.reset();
+      }, (error) => {
+        document.getElementById("alert-error").style.display = "block";
+        document.getElementById("alert-success").style.display = "none";
+        console.error("EmailJS Error:", error);
+      });
+  });
+</script>
 </body>
 </html>
