@@ -149,36 +149,45 @@
 <!-- EmailJS -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script>
-emailjs.init("6lMR5IHXiqToqbn2O");
+// Tente inicializar de forma diferente
+(function() {
+    emailjs.init({
+        publicKey: "6lMR5IHXiqToqbn2O"
+    });
+})();
 
 window.onload = function() {
-  document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    
-    const btn = this.querySelector('button');
-    btn.innerHTML = 'Enviando...';
-    btn.disabled = true;
-    
-    // IDs corretos confirmados:
-    // Service: service_oi7mzls
-    // Template: template_qhtzamc
-    emailjs.sendForm('service_oi7mzls', 'template_qhtzamc', this)
-      .then(function(response) {
-        console.log('SUCCESS!', response);
-        alert('Mensagem enviada com sucesso!');
-        document.getElementById('contact-form').reset();
-        btn.innerHTML = 'Send Message';
-        btn.disabled = false;
-      })
-      .catch(function(error) {
-        console.log('ERRO detalhado:', error);
-        console.log('Status:', error.status);
-        console.log('Text:', error.text);
-        alert('Erro: ' + error.text);
-        btn.innerHTML = 'Send Message';
-        btn.disabled = false;
-      });
-  });
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        const btn = this.querySelector('button');
+        btn.innerHTML = 'Enviando...';
+        btn.disabled = true;
+        
+        // Tentar com parâmetros explícitos
+        const templateParams = {
+            from_name: this.from_name.value,
+            reply_to: this.reply_to.value,
+            subject: this.subject.value,
+            message: this.message.value,
+            time: new Date().toLocaleString('pt-PT')
+        };
+        
+        emailjs.send('service_oi7mzls', 'template_qhtzamc', templateParams)
+            .then(function(response) {
+                console.log('SUCCESS!', response);
+                alert('Mensagem enviada com sucesso!');
+                document.getElementById('contact-form').reset();
+                btn.innerHTML = 'Send Message';
+                btn.disabled = false;
+            })
+            .catch(function(error) {
+                console.log('ERRO:', error);
+                alert('Erro: ' + (error.text || error.message));
+                btn.innerHTML = 'Send Message';
+                btn.disabled = false;
+            });
+    });
 };
 </script>
 </body>
